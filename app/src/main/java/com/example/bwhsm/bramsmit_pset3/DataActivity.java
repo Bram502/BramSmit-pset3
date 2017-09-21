@@ -2,8 +2,11 @@ package com.example.bwhsm.bramsmit_pset3;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -21,10 +24,30 @@ public class DataActivity extends AppCompatActivity {
     ListView lvItems;
     TextView tvResult;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data);
+
+        BottomNavigationView bottomNavigation = (BottomNavigationView)findViewById(R.id.bottom_navigation);
+        bottomNavigation.inflateMenu(R.menu.bottom_menu);
+
+        bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int id = item.getItemId();
+                switch (id) {
+                    case R.id.action_search:
+                        finish();
+                        break;
+                    case R.id.action_favorites:
+                        goToSavedList();
+                        break;
+                }
+                return true;
+            }
+        });
 
         Bundle extras = getIntent().getExtras();
         trackArray = (ArrayList<String>) extras.getSerializable("data");
@@ -49,5 +72,10 @@ public class DataActivity extends AppCompatActivity {
         Intent displayIntent = new Intent(this, TrackDisplayActivity.class);
         displayIntent.putExtra("data", trackData);
         this.startActivity(displayIntent);
+    }
+
+    private void goToSavedList() {
+        Intent savedListIntent  = new Intent(this, SavedListActivity.class);
+        this.startActivity(savedListIntent);
     }
 }

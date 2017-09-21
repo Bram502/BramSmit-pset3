@@ -38,6 +38,17 @@
             android:layout_marginTop="3dp"
             android:text="Search"
             android:layout_toEndOf="@+id/etTrack" />
+
+        <android.support.design.widget.BottomNavigationView
+            android:id="@+id/bottom_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorPrimaryDark"
+            app:itemBackground="@color/colorPrimaryDark"
+            app:itemIconTint="@color/colorIcon"
+            app:itemTextColor="@color/colorText" />
     </RelativeLayout>
 
 </LinearLayout>

@@ -1,11 +1,16 @@
 package com.example.bwhsm.bramsmit_pset3;
 
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
@@ -17,10 +22,32 @@ public class MainActivity extends AppCompatActivity {
 
     EditText etTrack;
 
+    private BottomNavigationView bottomNavigation;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        bottomNavigation = (BottomNavigationView)findViewById(R.id.bottom_navigation);
+        bottomNavigation.inflateMenu(R.menu.bottom_menu);
+
+        bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int id = item.getItemId();
+                switch (id) {
+                    case R.id.action_search:
+                        break;
+                    case R.id.action_favorites:
+                        goToSavedList();
+                        break;
+                }
+                return true;
+            }
+        });
+
+
         findViewById(R.id.searchButton).setOnClickListener(new ClickHandler());
         etTrack = (EditText) findViewById(R.id.etTrack);
         assert etTrack != null;
@@ -57,5 +84,10 @@ public class MainActivity extends AppCompatActivity {
         public void onClick(View view) {
             trackSearch(view);
         }
+    }
+
+    private void goToSavedList() {
+        Intent savedListIntent  = new Intent(this, SavedListActivity.class);
+        this.startActivity(savedListIntent);
     }
 }

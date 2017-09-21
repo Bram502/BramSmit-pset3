@@ -35,35 +35,26 @@ public class CustomAdapter extends ArrayAdapter<String> {
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View customView = inflater.inflate(R.layout.custom_row, parent, false);
 
-
-//        for (int i=0; i < trackData.size();i++) {
-//            String[] track = trackData.get(i).split("-");
-//            trackArray.add(track[0]);
-//        }
-//        System.out.println(trackData);
-//        System.out.println(trackArray);
-
         String trackData = getItem(position);
         String[] split = trackData.split(" - ");
+
+
         String track = split[0];
         String artist = split[1];
-        String imgUrl = split[2];
+        if (split.length == 3) {
+            String imgUrl = split[2];
+            new ImageAsyncTask((ImageView) customView.findViewById(R.id.albumImg)).execute(imgUrl);
+        }
 
-        new ImageAsyncTask((ImageView) customView.findViewById(R.id.albumImg)).execute(imgUrl);
 
         TextView trackView = (TextView) customView.findViewById(R.id.trackName);
         TextView artistView = (TextView) customView.findViewById(R.id.artistName);
-//        ImageView albumView = (ImageView) customView.findViewById(R.id.albumImg);
 
         trackView.setText(track);
         artistView.setText(artist);
-//        albumView.setImageDrawable(albumImg);
         return customView;
     }
 
-    public void setAlbumImg(Drawable d){
-        albumImg = d;
-    }
 
 
 }

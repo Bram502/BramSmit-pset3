@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">BramSmit-pset3</string>
+    <string name="action_search">Search</string>
+    <string name="action_favorites">Favorites</string>
 </resources>
